@@ -83,7 +83,7 @@ class Console(cmd.Cmd):
         if len(args[1]) == 0:
             print("** instance id missing **")
             return
-        if args[0] not in class_names:
+        if args[0] not in self.class_names:
             print("** class doesn't exist **")
             return
         show_all = storage.all()
@@ -110,7 +110,6 @@ class Console(cmd.Cmd):
     def do_update(self, args):
         """ Updates an instance based on the class name and id by adding or
         updating attribute """
-        class_names
         args = args.split()
         if len(args) <= 0:
             print("** class name missing **")
