@@ -16,31 +16,36 @@ class FileStorage:
         FileStorage.__objects[obj.id] = obj
 
     def save(self):
+        import pdb; pdb.set_trace()
+
         new_dict = {}
         for key in FileStorage.__objects.keys():
-            new_dict[key] = FileStorage.__objects[key].to_json()
-
+           # new_dict[key] = FileStorage.__objects[key].to_json()
+           print("It was a datetime")
         with open(FileStorage.__file_path, "w+") as fd:
             json.dump(new_dict, fd)
 
     def reload(self):
         if os.path.isfile(FileStorage.__file_path) == True:
-            with open(FileStorage.__file_path, "r+") as fd:
-                json_dict = json.load(fd)
-                for key in json_dict.keys():
-                    value = json_dict[key]
-                    class_name = value["__class__"]
-                    if "BaseModel" in class_name:
-                        FileStorage.__objects[key] = models.BaseModel(json_dict[key])
-                    if "User" in class_name:
-                        FileStorage.__objects[key] = models.User(json_dict[key])
-                    if "State" in class_name:
-                        FileStorage.__objects[key] = models.State(json_dict[key])
-                    if "City" in class_name:
-                        FileStorage.__objects[key] = models.City(json_dict[key])
-                    if "Amenity" in class_name:
-                        FileStorage.__objects[key] = models.Amenity(json_dict[key])
-                    if "Place" in class_name:
-                        FileStorage.__objects[key] = models.Place(json_dict[key])
-                    if "Review" in class_name:
-                        FileStorage.__objects[key] = models.Review(json_dict[key])
+            try:
+                with open(FileStorage.__file_path, "r+") as fd:
+                    json_dict = json.load(fd)
+                    for key in json_dict.keys():
+                        value = json_dict[key]
+                        class_name = value["__class__"]
+                        if "BaseModel" in class_name:
+                            FileStorage.__objects[key] = models.BaseModel(json_dict[key])
+                        if "User" in class_name:
+                            FileStorage.__objects[key] = models.User(json_dict[key])
+                        if "State" in class_name:
+                            FileStorage.__objects[key] = models.State(json_dict[key])
+                        if "City" in class_name:
+                            FileStorage.__objects[key] = models.City(json_dict[key])
+                        if "Amenity" in class_name:
+                            FileStorage.__objects[key] = models.Amenity(json_dict[key])
+                        if "Place" in class_name:
+                            FileStorage.__objects[key] = models.Place(json_dict[key])
+                        if "Review" in class_name:
+                            FileStorage.__objects[key] = models.Review(json_dict[key])
+            except Exception as e:
+                pass

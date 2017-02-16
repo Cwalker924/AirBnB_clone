@@ -2,21 +2,23 @@
 import uuid
 import datetime
 import models
+""" this is the BaseModel module """
+
 
 class BaseModel():
     """BaseModel Class"""
     def __init__(self, *args, **kwargs):
         if len(args) > 0:
-           if type(args[0]) is dict:
-               self.__dict__ = args[0]
-               self.__dict__["created_at"] = datetime.datetime.strptime
-               (self.created_at, "%Y-%m-%dT%H:%M:%S.%f")
-               self.__dict__["updated_at"] = datetime.datetime.strptime
-               (self.updated_at, "%Y-%m-%dT%H:%M:%S.%f")
-           else:
-               self.id = str(uuid.uuid4())
-               self.created_at = datetime.datetime.now()
-               models.storage.new(self)
+            if type(args[0]) is dict:
+                self.__dict__ = args[0]
+                self.__dict__["created_at"] = datetime.datetime.strptime
+                ((self.__dict__[created_at]), "%Y-%m-%dT%H:%M:%S.%f")
+                self.__dict__["updated_at"] = datetime.datetime.strptime
+                ((self.__dict__[updated_at]), "%Y-%m-%dT%H:%M:%S.%f")
+        else:
+                self.id = str(uuid.uuid4())
+                self.created_at = datetime.datetime.now()
+                models.storage.new(self)
 
     def save(self):
         """ save method
@@ -29,13 +31,13 @@ class BaseModel():
     def to_json(self):
         """ to_json method
 
-        Turns dateime into strings before passing them into a new dict
+        Turns datetime into strings before passing them into a new dict
         Returns new_dict with key value pairs
         """
         str_dict = self.__dict__
         new_dict = {}
         for key in str_dict.keys():
-            if (isinstance(str_dict[key], datetime)):
+            if (isinstance(str_dict[key], type(datetime))):
                 new_dict[key] = str(str_dict[key])
             else:
                 new_dict[key] = str_dict[key]
