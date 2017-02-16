@@ -10,7 +10,7 @@ This is the HBNB console module
 
 class Console(cmd.Cmd):
     """ Console Interpreter"""
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
     class_names = ["BaseModel", "User", "State", "City", "Amenity", "Place",
                    "Review"]
 
@@ -40,6 +40,7 @@ class Console(cmd.Cmd):
 
     def do_create(self, args):
         """ Creates an instance of a goven model """
+        import pdb; pdb.set_trace()
         model = {"BaseModel": models.BaseModel(), "User": models.User(),
                  "State": models.State(), "City": models.City(),
                  "Amenity": models.Amenity(), "Place": models.Place(),
@@ -50,7 +51,7 @@ class Console(cmd.Cmd):
             if args in model.keys():
                 value = model[args]
                 new = value
-                new.save()
+                new.models.storage.save()
                 print(new.id)
 
     def do_show(self, args):
@@ -59,10 +60,13 @@ class Console(cmd.Cmd):
         args = args.split()
         if len(args) <= 0:
             print("** class name missing **")
+            return
         if len(args) <= 1:
             print("** instance id missing **")
-        if args[0] not in class_name:
+            return
+        if args[0] not in self.class_names:
             print("** class doesn't exist **")
+            return
         else:
             show_all = storage.all()
             for key_id in show_all.keys():
@@ -75,10 +79,13 @@ class Console(cmd.Cmd):
         args = args.split()
         if len(args[0]) == 0:
             print("** class name missing **")
+            return
         if len(args[1]) == 0:
             print("** instance id missing **")
-        if args[0] not in class_name:
+            return
+        if args[0] not in class_names:
             print("** class doesn't exist **")
+            return
         show_all = storage.all()
         for key_id in show_all.keys():
             if key_id == args[1]:
@@ -91,10 +98,11 @@ class Console(cmd.Cmd):
         store = models.storage.all()
 
         args = args.split()
-        if args[0] not in class_name:
+        if args[0] not in self.class_names:
             print("** class doesn't exist **")
+            return
         else:
-            for key in self.store.keys():
+            for key in store.keys():
                 if self.store[key].__class__.__name__ == args[0]:
                     show_list.append(str(store[key]))
             print(show_list)

@@ -16,14 +16,12 @@ class FileStorage:
         FileStorage.__objects[obj.id] = obj
 
     def save(self):
-        import pdb; pdb.set_trace()
 
-        new_dict = {}
+        keeper = {}
         for key in FileStorage.__objects.keys():
-           # new_dict[key] = FileStorage.__objects[key].to_json()
-           print("It was a datetime")
+           keeper[key] = FileStorage.__objects[key].to_json()
         with open(FileStorage.__file_path, "w+") as fd:
-            json.dump(new_dict, fd)
+            json.dump(keeper, fd)
 
     def reload(self):
         if os.path.isfile(FileStorage.__file_path) == True:

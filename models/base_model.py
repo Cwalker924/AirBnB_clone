@@ -34,15 +34,11 @@ class BaseModel():
         Turns datetime into strings before passing them into a new dict
         Returns new_dict with key value pairs
         """
-        str_dict = self.__dict__
-        new_dict = {}
-        for key in str_dict.keys():
-            if (isinstance(str_dict[key], type(datetime))):
-                new_dict[key] = str(str_dict[key])
-            else:
-                new_dict[key] = str_dict[key]
-        new_dict['__class__'] = self.__class__.__name__
-        return (new_dict)
+        str_dict = self.__dict__.copy()
+        str_dict['created_at'] = str(str_dict['created_at'])
+        str_dict['updated_at'] = str(str_dict['updated_at'])
+        str_dict['__class__'] = self.__class__.__name__
+        return (str_dict)
 
     def __str__(self):
         """ __str__ method
