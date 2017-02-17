@@ -15,12 +15,13 @@ class Console(cmd.Cmd):
                    "Review"]
 
     def do_exit(self, args):
-        """Exits the  Console"""
-        return (-1)
+        """Exits the  Console with 'Ctrl + d'"""
+        quit()
 
     def do_EOF(self, args):
         """Exits system with end of file character 'control' + 'c'"""
-        return (self.do_exit(args))
+        print("")
+        return (True)
 
     def do_shell(self, args):
         """Pass system shell if line starts with '!' character"""
