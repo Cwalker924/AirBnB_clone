@@ -9,16 +9,17 @@ class BaseModel():
     """BaseModel Class"""
     def __init__(self, *args, **kwargs):
         if len(args) > 0:
-            if type(args[0]) is dict:
+            if type(args) is dict:
                 self.__dict__ = args[0]
                 self.__dict__["created_at"] = datetime.datetime.strptime
                 ((self.__dict__[created_at]), "%Y-%m-%dT%H:%M:%S.%f")
                 self.__dict__["updated_at"] = datetime.datetime.strptime
                 ((self.__dict__[updated_at]), "%Y-%m-%dT%H:%M:%S.%f")
         else:
-                self.id = str(uuid.uuid4())
-                self.created_at = datetime.datetime.now()
-                models.storage.new(self)
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
+            models.storage.new(self)
 
     def save(self):
         """ save method

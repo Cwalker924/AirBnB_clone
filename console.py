@@ -39,20 +39,20 @@ class Console(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """ Creates an instance of a goven model """
-        import pdb; pdb.set_trace()
+        """ Creates an instance of a given model """
         model = {"BaseModel": models.BaseModel(), "User": models.User(),
                  "State": models.State(), "City": models.City(),
                  "Amenity": models.Amenity(), "Place": models.Place(),
                  "Review": models.Review()}
+        args = args.split()
         if len(args) < 1:
             print("** class name missing **")
         else:
-            if args in model.keys():
-                value = model[args]
-                new = value
-                new.models.storage.save()
-                print(new.id)
+            for key in model.keys():
+                if args[0] in key:
+                    value = model[key]
+                    value.save()
+                    print(value.id)
 
     def do_show(self, args):
         """ Prints the string representation of an instance based on the class
@@ -85,7 +85,6 @@ class Console(cmd.Cmd):
             return
         if args[0] not in self.class_names:
             print("** class doesn't exist **")
-            return
         show_all = storage.all()
         for key_id in show_all.keys():
             if key_id == args[1]:
