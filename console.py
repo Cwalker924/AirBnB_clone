@@ -79,6 +79,7 @@ class Console(cmd.Cmd):
 
     def do_destroy(self, args):
         """ Deletes an instance based on the class name and id """
+        #import pdb; pdb.set_trace()
         args = args.split()
         if len(args) < 1:
             print("** class name missing **")
@@ -89,12 +90,11 @@ class Console(cmd.Cmd):
         if args[0] not in self.class_names:
             print("** class doesn't exist **")
         show_all = storage.all()
-        for key_id in show_all.keys():
-            if key_id == args[1]:
-                del show_all[key_id]
-                models.storage.save()
-            else:
-                print("** no instance found **")
+        if args[1] in show_all.keys():
+            del show_all[args[1]]
+            models.storage.save()
+        else:
+            print("** no instance found **")
 
     def do_all(self, args):
         show_list = []
@@ -113,7 +113,6 @@ class Console(cmd.Cmd):
     def do_update(self, args):
         """ Updates an instance based on the class name and id by adding or
         updating attribute """
-        import pdb; pdb.set_trace()
         args = args.split()
         if len(args) < 1:
             print("** class name missing **")
@@ -124,12 +123,12 @@ class Console(cmd.Cmd):
         elif len(args) < 4:
             print("** value missing **")
         stored_obj = models.storage.all()
-        for obj_id in stored_obj.keys():
-            if obj_id is args[1]:
-                setattr(stored_obj[obj_id], args[2], args[3])
-                models.storage.save()
-            else:
-                print("** no instance found **")
+        if args[1] in stored_obj.keys():
+            setattr(stored_obj[args[1]], args[2], args[3])
+            models.storage.save()
+        else:
+            print("** no instance found **")
+
 if __name__ == "__main__":
     prompts = Console()
     prompts.cmdloop()
