@@ -21,12 +21,12 @@ $ ./console.py
 The (hbnb) prompt indicates the console is ready for commands! For a list of
 available commands, enter the help command. Currently implemended commands are:
 
-* `create` + 'Cls'
-* `show` + 'Cls' + 'id'
-* `update` + 'Cls' + 'id' + '<attribute name>' + '<attribute value>'
-* `show` + 'Cls' + 'id'
-* `all` or `all` + 'Cls'
-* `destroy` 'Cls' + 'id'
+* `create` + `Cls`
+* `show` + `Cls` + `id`
+* `update` + `Cls` + `id` + `<attribute name>` + `<attribute value>`
+* `show` + `Cls` + `id`
+* `all` or `all` + `Cls`
+* `destroy` `Cls` + `id`
 * `quit` or `exit`
 
 **More Updates Coming Soon**
