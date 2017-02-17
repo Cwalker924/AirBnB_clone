@@ -40,19 +40,20 @@ class Console(cmd.Cmd):
 
     def do_create(self, args):
         """ Creates an instance of a given model """
+        #import pdb; pdb.set_trace()
         model = {"BaseModel": models.BaseModel(), "User": models.User(),
                  "State": models.State(), "City": models.City(),
                  "Amenity": models.Amenity(), "Place": models.Place(),
                  "Review": models.Review()}
         args = args.split()
-        if len(args) < 1:
+        if len(args) != 1:
             print("** class name missing **")
         else:
             for key in model.keys():
                 if args[0] in key:
                     value = model[key]
-                    value.save()
                     print(value.id)
+                    value.save()
 
     def do_show(self, args):
         """ Prints the string representation of an instance based on the class

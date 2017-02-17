@@ -16,17 +16,16 @@ class FileStorage:
         FileStorage.__objects[obj.id] = obj
 
     def save(self):
-        import pdb; pdb.set_trace()
         keeper = {}
         for key in FileStorage.__objects.keys():
            keeper[key] = FileStorage.__objects[key].to_json()
-        with open(FileStorage.__file_path, "w+") as fd:
+        with open(FileStorage.__file_path, "w", encoding="UTF-8") as fd:
             json.dump(keeper, fd)
 
     def reload(self):
         if os.path.isfile(FileStorage.__file_path) == True:
             try:
-                with open(FileStorage.__file_path, "r+") as fd:
+                with open(FileStorage.__file_path, "r+", encoding="UTF-8") as fd:
                     json_dict = json.load(fd)
                     for key in json_dict.keys():
                         value = json_dict[key]
