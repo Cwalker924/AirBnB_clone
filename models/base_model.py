@@ -9,7 +9,7 @@ class BaseModel():
     """BaseModel Class"""
     def __init__(self, *args, **kwargs):
         if len(args) > 0:
-            if type(args) is dict:
+            if type(args[0]) is dict:
                 self.__dict__ = args[0]
                 self.__dict__["created_at"] = datetime.datetime.strptime
                 ((self.__dict__[created_at]), "%Y-%m-%dT%H:%M:%S.%f")
@@ -27,7 +27,6 @@ class BaseModel():
         saves the 'update_at' attribute to Filestorage
         """
         self.updated_at = datetime.datetime.now()
-        models.storage.new(self)
         models.storage.save()
 
     def to_json(self):

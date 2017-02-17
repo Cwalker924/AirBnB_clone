@@ -40,32 +40,33 @@ class Console(cmd.Cmd):
 
     def do_create(self, args):
         """ Creates an instance of a given model """
-        #import pdb; pdb.set_trace()
         model = {"BaseModel": models.BaseModel(), "User": models.User(),
                  "State": models.State(), "City": models.City(),
                  "Amenity": models.Amenity(), "Place": models.Place(),
                  "Review": models.Review()}
-        args = args.split()
-        if len(args) != 1:
+        if len(args) < 1:
             print("** class name missing **")
         else:
-            for key in model.keys():
-                if args[0] in key:
-                    value = model[key]
-                    print(value.id)
-                    value.save()
+            if args in model.keys():
+                value = model[args]
+                new = value
+                new.save()
+                print(new.id)
+            else:
+                print ("** class doesn't exist **")
+                return
 
     def do_show(self, args):
         """ Prints the string representation of an instance based on the class
         name and id """
         args = args.split()
-        if len(args) <= 0:
+        if len(args) == 0:
             print("** class name missing **")
             return
-        if len(args) <= 1:
+        if len(args) == 1:
             print("** instance id missing **")
             return
-        if args[0] not in self.class_names:
+        if args[0] not in Console.class_names:
             print("** class doesn't exist **")
             return
         else:
@@ -73,15 +74,16 @@ class Console(cmd.Cmd):
             for key_id in show_all.keys():
                 if key_id == args[1]:
                     print(show_all[key_id])
+                    return
             print("** no instance found **")
 
-    def do_destroy(self, arg):
+    def do_destroy(self, args):
         """ Deletes an instance based on the class name and id """
         args = args.split()
-        if len(args[0]) == 0:
+        if len(args) < 1:
             print("** class name missing **")
             return
-        if len(args[1]) == 0:
+        if len(args) < 2:
             print("** instance id missing **")
             return
         if args[0] not in self.class_names:
@@ -91,7 +93,8 @@ class Console(cmd.Cmd):
             if key_id == args[1]:
                 del show_all[key_id]
                 models.storage.save()
-        print("** no instance found **")
+            else:
+                print("** no instance found **")
 
     def do_all(self, args):
         show_list = []
@@ -103,25 +106,26 @@ class Console(cmd.Cmd):
             return
         else:
             for key in store.keys():
-                if self.store[key].__class__.__name__ == args[0]:
+                if store[key].__class__.__name__ == args[0]:
                     show_list.append(str(store[key]))
             print(show_list)
 
     def do_update(self, args):
         """ Updates an instance based on the class name and id by adding or
         updating attribute """
+        import pdb; pdb.set_trace()
         args = args.split()
-        if len(args) <= 0:
+        if len(args) < 1:
             print("** class name missing **")
-        if len(args) <= 1:
+        elif len(args) < 2:
             print("** instance id missing **")
-        if len(args) <= 2:
+        elif len(args) < 3:
             print("** attribute name missing **")
-        if len(args) <= 3:
+        elif len(args) < 4:
             print("** value missing **")
         stored_obj = models.storage.all()
         for obj_id in stored_obj.keys():
-            if obj_id == args[1]:
+            if obj_id is args[1]:
                 setattr(stored_obj[obj_id], args[2], args[3])
                 models.storage.save()
             else:
