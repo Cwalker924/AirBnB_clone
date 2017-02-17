@@ -2,12 +2,15 @@
 import uuid
 import datetime
 import models
-""" this is the BaseModel module """
+""" This is the BaseModel module """
 
 
 class BaseModel():
     """BaseModel Class"""
     def __init__(self, *args, **kwargs):
+        """ init method
+        initializes class
+        """
         if len(args) > 0:
             if type(args[0]) is dict:
                 self.__dict__ = args[0]
@@ -23,7 +26,6 @@ class BaseModel():
 
     def save(self):
         """ save method
-
         saves the 'update_at' attribute to Filestorage
         """
         self.updated_at = datetime.datetime.now()
@@ -31,7 +33,6 @@ class BaseModel():
 
     def to_json(self):
         """ to_json method
-
         Turns datetime into strings before passing them into a new dict
         Returns new_dict with key value pairs
         """
@@ -43,7 +44,6 @@ class BaseModel():
 
     def __str__(self):
         """ __str__ method
-
         Returns user friendly string
         """
         return ("[{}] ({}) {}".format(type(self).__name__, self.id, self.__dict__))

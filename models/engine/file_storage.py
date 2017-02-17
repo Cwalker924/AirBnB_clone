@@ -4,18 +4,30 @@ import uuid
 import os
 from models import *
 
-class FileStorage:
 
+class FileStorage:
+    """ Module FileStorage
+    Handles all saving, writing and reading of database
+    """
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
+        """ all module
+        Shows all objects
+        """
         return (FileStorage.__objects)
 
     def new(self, obj):
+        """ new module
+        creates new Cls with unique ID
+        """
         FileStorage.__objects[obj.id] = obj
 
     def save(self):
+        """ save module
+        saves data and writes it to json file
+        """
         keeper = {}
         for key in FileStorage.__objects.keys():
            keeper[key] = FileStorage.__objects[key].to_json()
@@ -23,6 +35,9 @@ class FileStorage:
             json.dump(keeper, fd)
 
     def reload(self):
+        """ reload method
+        turns json readable data to object
+        """
         if os.path.isfile(FileStorage.__file_path) == True:
             try:
                 with open(FileStorage.__file_path, "r+", encoding="UTF-8") as fd:

@@ -98,6 +98,9 @@ class Console(cmd.Cmd):
             print("** no instance found **")
 
     def do_all(self, args):
+        """ all method
+        shows all Classes created of a given class
+        """
         show_list = []
         store = models.storage.all()
 
