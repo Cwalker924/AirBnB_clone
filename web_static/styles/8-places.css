@@ -46,19 +46,19 @@
 }
 
 .places .guest_icon {
-    background-image: url('../images/icon_guest.png');
+    background-image: url('../images/guest_icon.png');
     height: 50;
     width: 50;
 }
 
 .places .room_icon {
-    background-image: url('../images/icon_bed.png');
+    background-image: url('../images/room_icon.png');
     height: 50;
     width: 50;
 }
 
 .places .bath_icon {
-    background-image: url('../images/icon_bath.png');
+    background-image: url('../images/bath_icon.png');
     height: 50;
     width: 50;
 }
