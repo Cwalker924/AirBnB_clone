@@ -14,6 +14,5 @@ def do_pack():
         local("sudo mkdir -p versions")
         local("sudo tar -cvzf version/web_static_{}.tgz web_static/"
               .format(time))
-        print("varsion/web_static_{}.tgz".format(time))
     except:
-        pass
+        return None
