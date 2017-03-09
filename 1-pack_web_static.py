@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-
+"""
+This is module 1-pack_web_static.py
+The following is a fabfile
+"""
 from fabric.api import local
 import datetime
 
@@ -16,4 +19,4 @@ def do_pack():
               .format(time))
         return ("versions/web_static_{}.tgz".format(time))
     except:
-        return None
+        return (None)
