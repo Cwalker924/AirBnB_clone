@@ -16,7 +16,7 @@ sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 # adds and specifies ownership to ubuntu
 sudo chown -R ubuntu:ubuntu /data/
 # Nginx config to serve content
-serv_conf="\n\tlocation /hbnb_static/ {\n \t\talias /data/web_static/current/;\n\t}"
+serv_conf="\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}"
 sudo sed -i "37 i\ $serv_conf" /etc/nginx/sites-available/default
 # restart nginx
 sudo service nginx restart
