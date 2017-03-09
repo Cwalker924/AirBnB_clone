@@ -1,12 +1,28 @@
 #!/usr/bin/python3
 """
-This is 2-do_deploy_web_static.py module and houses the 'do_deploy' function.
+This is 3-deploy_web_static.py module and houses the 'do_pack','do_deploy' and
+'deploy' function.
 """
 from fabric.api import *
 
 
 env.hosts = ['107.20.68.230:34185']
 env.user = 'root'
+
+
+def do_pack():
+        """
+    a Fabric script that generates a .tgz archive from the contents of the
+    web_static folder of your AirBnB Clone repo, using the function do_pack.
+    """
+        time = strftime("%Y%m%d%H%M%S")
+        file_name = "versions/web_static_{}.tgz".format(time)
+        try:
+            local("mkdir -p versions")
+            local("tar -cvzf {} web_static".format(file_name))
+            return (file_name)
+        except:
+            return (None)
 
 
 def do_deploy(archive_path):
@@ -27,3 +43,12 @@ def do_deploy(archive_path):
         return (True)
     except:
         return (False)
+
+
+def deploy():
+        try:
+                path = do_pack()
+                deploy = do_deploy(path)
+                return (deploy)
+        except:
+                return (False)
